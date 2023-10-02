@@ -37,6 +37,7 @@ services:
         - django-static:/var/www/django/static
       depends_on:
         - db
+        - json-server
       networks:
         - webnet
         - postgresnet
@@ -58,6 +59,17 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+
+  json-server:
+    image: vimagick/json-server
+    command: -H 0.0.0.0 -p 3000 -w db.json
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/data
+    restart: always
+    networks:
+      - webnet
 
 # This task is an example of how to extend existing ones:
 #   some_worker:

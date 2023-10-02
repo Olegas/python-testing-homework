@@ -87,9 +87,9 @@ class ExternalApiCreateResponse(TypedDict):
 
 
 @pytest.fixture()
-def external_api_create_response() -> ExternalApiCreateResponse:
+def external_api_create_response(faker_seed) -> ExternalApiCreateResponse:
     """Returns random response for create user request."""
-    field = Field(locale=Locale.EN)
+    field = Field(locale=Locale.EN, seed=faker_seed)
     schema = Schema(
         schema=lambda: {
             'id': field('numeric.increment'),
